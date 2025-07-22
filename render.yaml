@@ -1,23 +1,14 @@
 services:
-  # Static site for the React app
   - type: web
     name: script-psych-architect
     runtime: static
-    buildCommand: npm install && npm run build
+    buildCommand: npm ci --production=false && npm run build
     staticPublishPath: ./dist
     envVars:
       - key: NODE_VERSION
-        value: 20.11.0
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
-      - path: /*
-        name: X-XSS-Protection
-        value: 1; mode=block
+        value: "20"
+      - key: SKIP_INSTALL_DEPS
+        value: true
     routes:
       - type: rewrite
         source: /*
